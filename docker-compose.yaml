@@ -1,0 +1,31 @@
+version: "3"
+volumes:
+  api_node_modules:
+
+services:
+  db:
+    image: postgres:latest
+    container_name: fastapi_boiler-postgres
+    # restart: always
+    # platform: 'linux/amd64'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: /data/postgres
+    volumes:
+      - ./docker/postgres:/data/postgres
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    container_name: fastapi_boiler_api
+    ports:
+      - "3000:80"
+    depends_on:
+      - db
+    volumes:
+      - ./api/app:/code/app
