@@ -14,14 +14,14 @@ app.include_router(
 )
 
 
-@app.get("/")
-def read_root():
+@app.get("/ping")
+def ping():
     c = config.get_settings()
     env = os.getenv("ENVIRONMENT")
     print(f"env: {env}")
-    return {"Hello": "World2", "app_name": c.app_name}
+    return {"message": "pong", "admin_email": c.admin_email}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+# @app.get("/items/{item_id}")
+# def read_item(item_id: int, q: Union[str, None] = None):
+#     return {"item_id": item_id, "q": q}
