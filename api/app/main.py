@@ -2,8 +2,16 @@ import os
 from typing import Union
 from fastapi import FastAPI
 from . import config
+from .adapter.controller import users
 
 app = FastAPI()
+
+app.include_router(
+    users.router,
+    prefix="/users",
+    tags=["users"],
+    responses={404: {"description": "Not found"}},
+)
 
 
 @app.get("/")
