@@ -18,6 +18,14 @@ services:
       - ./docker/postgres:/data/postgres
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: password
+
   api:
     build:
       context: ./api
