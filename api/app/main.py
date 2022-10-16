@@ -3,6 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 from . import config
 from .adapter.controller import users
+from loguru import logger
 
 app = FastAPI()
 
@@ -18,7 +19,8 @@ app.include_router(
 def ping():
     c = config.get_settings()
     env = os.getenv("ENVIRONMENT")
-    print(f"env: {env}")
+    # print(f"env: {env}")
+    logger.debug("env: {env}", env=env)
     return {"message": "pong", "admin_email": c.admin_email}
 
 
