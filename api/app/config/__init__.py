@@ -1,3 +1,4 @@
+import os
 from pydantic import BaseSettings
 from functools import lru_cache
 
@@ -8,7 +9,7 @@ class Settings(BaseSettings):
     items_per_user: int = 50
 
     class Config:
-        env_file = ".env"
+        env_file = ".env", f".env.{os.getenv('ENVIRONMENT', 'local')}"
 
 
 @lru_cache()

@@ -1,3 +1,4 @@
+import os
 from typing import Union
 from fastapi import FastAPI
 from . import config
@@ -8,6 +9,8 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     c = config.get_settings()
+    env = os.getenv("ENVIRONMENT")
+    print(f"env: {env}")
     return {"Hello": "World2", "app_name": c.app_name}
 
 

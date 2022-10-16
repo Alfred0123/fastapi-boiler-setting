@@ -18,18 +18,22 @@ services:
       - ./docker/postgres:/data/postgres
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: password
+  # mongo:
+  #   image: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: mongo
+  #     MONGO_INITDB_ROOT_PASSWORD: password
 
   api:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
+      # args: # docker compose 로 build 할때 제대로 동작 안함 / docker-compose 로 build 시에는 정상 동작
+      #   TARGET_ENV: "local"
+    environment:
+      ENVIRONMENT: "local"
     container_name: fastapi_boiler_api
     ports:
       - "3000:80"

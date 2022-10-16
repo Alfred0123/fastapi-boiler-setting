@@ -6,7 +6,12 @@ WORKDIR /code
 
 # 
 COPY ./requirements.txt /code/requirements.txt
+
+#
+# ARG TARGET_ENV
+# ENV ENVIRONMENT=$TARGET_ENV
 COPY ./.env /code/.env
+COPY ./.env.* /code/
 
 # 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
