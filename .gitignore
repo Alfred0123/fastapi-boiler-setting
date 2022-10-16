@@ -1,4 +1,3 @@
 .venv
-docker-entrypoint-initdb.d
 docker/postgres
 __pycache__
